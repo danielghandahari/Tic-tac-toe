@@ -14,16 +14,22 @@ def mainMenu():
     print "[2] Join a game"
     print "[3] Quit"
 
-    menu = str(raw_input("Please press [1] or [2] or [3]: "))
+mainMenu()
 
+ask = True
+
+while ask:
+    menu = str(raw_input("Please press [1] or [2] or [3]: "))
+    mainMenu()
     if menu == "1":
         print "go to play new game func"
+        ask = False
     elif menu == "2":
         print "go to join a game func"
+        ask = False
     elif menu == "3":
         print "go to quit game func"
+        ask = False
     else:
         print "Please enter a respective key \n"
-        mainMenu()
 
-mainMenu()
