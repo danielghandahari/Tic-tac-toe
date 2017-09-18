@@ -18,23 +18,31 @@ def startGame():
 		p1 = raw_input("Enter the name of player 1: ")
 		p2 = raw_input("Enter the name of player 2: ")
 		print("player1:" + p1  + "\n player2:" + p2)
+		#now start the game and call the platform 
 	elif select_option_singlegame == "2":
 		p1 = raw_input("Enter the name of the player")
 		select_ai_difficulty = raw_input("What level of difficulty should the AI have? \n 1. Easy \n 2. Normal \n 3. Hard \n").lower()
 		if select_ai_difficulty == "1":
 			print("you have started a game vs ai easy " + p1)
+			#start game and call the platform
 		elif select_ai_difficulty == "2":
 			print("ai Normal "+ p1)
+			#start game and call the platform
 		elif select_ai_difficulty == "2":
 			print("ai hard "+ p1 )
+			#start game and call the platform
 	if select_option_singlegame == "3":
 		pass
 	else:
 		print("You have not selected a vaild option ")
-			
+		startGame()	
 
 def startTournament():
 	print("Tournament started")
+	#create a list 
+	tournament_players = raw_input("How many players will there be in the Tournament 2-8: ")
+	
+
 
 
 loop = True
