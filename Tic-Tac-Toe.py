@@ -1,6 +1,6 @@
 
 #Printing welcome to Tic-Tac-Toe
-import sys
+#import sys
 
 name = raw_input("Please enter your username: ")
 print('\x1b[1;5;35m'+'WELCOME TO \nTIC-TAC-TOE\n'+name+'\x1b[0m')
@@ -12,23 +12,23 @@ def print_menu():
 
 #TODO: add options: Player vs Player, Player vs AI
 def startGame():
-	print("hej")
-	select_option_singlegame = raw_input("Do you want to play: \n 1. Player vs Player \n 2. Player vs AI \n3. Go back to menu").lower()
+	select_option_singlegame = raw_input("Do you want to play: \n1. Player vs Player \n2. Player vs AI \n3. Go back to menu\n").lower()
 	
 	if select_option_singlegame == "1":
-		p1 = raw_input("Enter the name of player 1")
-		p2 = raw_input("Enter the name of player 2")
+		p1 = raw_input("Enter the name of player 1: ")
+		p2 = raw_input("Enter the name of player 2: ")
+		print("player1:" + p1  + "\n player2:" + p2)
 	elif select_option_singlegame == "2":
-		p1 = raw_input = "Enter the name of the player"
-		select_ai_difficulty = raw_input("What level of difficulty should the AI have? \n 1. Easy \n 2. Normal \n 3. Hard").lower()
+		p1 = raw_input("Enter the name of the player")
+		select_ai_difficulty = raw_input("What level of difficulty should the AI have? \n 1. Easy \n 2. Normal \n 3. Hard \n").lower()
 		if select_ai_difficulty == "1":
-			print("you have started a game vs ai easy")
+			print("you have started a game vs ai easy " + p1)
 		elif select_ai_difficulty == "2":
-			print("ai Normal")
+			print("ai Normal "+ p1)
 		elif select_ai_difficulty == "2":
-			print("ai hard")
+			print("ai hard "+ p1 )
 	if select_option_singlegame == "3":
-		print_menu()
+		pass
 	else:
 		print("You have not selected a vaild option ")
 			
