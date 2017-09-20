@@ -80,14 +80,6 @@ while True:
 	print_board_dummies()
 	player_1_move()
 
-	#Check if is Tie
-	tie = True
-	if " " in board:
-		tie = False
-	elif tie == True:
-		print("Tie! No player wins!")
-		print_board()
-		break
 
 	#Check if player win
 	if (board[0] == "X" and board[1] == "X" and board[2] == "X") or \
@@ -115,5 +107,14 @@ while True:
 		(board[0] == "O" and board[4] == "O" and board[8] == "O") or \
 		(board[2] == "O" and board[4] == "O" and board[6] == "O"):
 		print("Congratulation!" + "p2" + "win!")
+		print_board()
+		break
+
+	#Check if is Tie
+	tie = True
+	if " " in board:
+		tie = False
+	elif tie == True:
+		print("Tie! No player wins!")
 		print_board()
 		break
