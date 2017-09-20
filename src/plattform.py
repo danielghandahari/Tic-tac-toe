@@ -41,7 +41,7 @@ class Plattform:
 
     def start_match(self):
         "Logic for starting a match"
-        print "Match started \n"
+        print "Match started \n Under progress \n \n \n"
 
     def player_x_move(self):
         """Function to handle player X movement"""

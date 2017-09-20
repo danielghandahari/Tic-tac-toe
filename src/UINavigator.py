@@ -65,13 +65,26 @@ class UINavigator:
         while loopQuit:
 
             # Menu for startQuickMatch
+            print("")
+            print("")
+            print("******GAME MODE ***********************")
+            print("")
+            print("1. Player vs Player ")
+            print("2. Player vs AI ")
+            print("3. AI vs AI ")
+            print("4. Go back to menu")
+            print("****************************************")
+            print("")
+            select_option_singlegame = raw_input("Enter number on what type of game you wanna play: ")
+
+            '''
             select_option_singlegame = raw_input(
                 "Do you want to play: \n"
                 "1. Player vs Player \n"
                 "2. Player vs AI \n"
                 "3. AI vs AI \n"
                 "4. Go back to menu\n").lower()
-
+            '''
             # Player vs Player
             if select_option_singlegame == "1":
 
