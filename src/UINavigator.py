@@ -4,6 +4,11 @@ from tournament import Tournament
 
 class UINavigator:
 
+    def notValidInput(self):
+        print("")
+        print("You have not selected a valid option!")
+        print("")
+
     def startTournament(self):
         print "Tournament started"
 
@@ -15,9 +20,16 @@ class UINavigator:
         tournament.create_tournament_tree()
 
     def print_menu(self):
+        print("")
+        print("")
+        print("******TIC***TAC***TOE***MENU***********")
+        print("")
         print("[S]tart game")
         print("[T]ournament")
         print("[Q]uit game")
+        print("")
+        print("****************************************")
+        print("")
 
 
     def choose_mode(self):
@@ -30,6 +42,7 @@ class UINavigator:
 
             select_option = raw_input("What do you want to do? _").lower()
 
+
             if select_option == "s":
                 self.startQuickMatch()
 
@@ -37,14 +50,21 @@ class UINavigator:
                 self.startTournament()
 
             elif select_option == "q":
-                select_option_quit = raw_input("Do you really want to quit? \n[y]/[n]\n").lower()
-                if select_option_quit == "y":
-                    done = True
-                elif select_option_quit == "n":
-                    continue
-
+                loopQuit = True
+                while loopQuit:
+                    select_option_quit = raw_input("Do you really want to quit? \n[Y]es / [N]o \n").lower()
+                    if select_option_quit == "y":
+                        print("")
+                        print("Thanks for playing!")
+                        print("Goodbye")
+                        loopQuit = False
+                        done = True
+                    elif select_option_quit == "n":
+                        loopQuit = False
+                    else:
+                        self.notValidInput()
             else:
-                print("You have not selected a vaild option ")
+                self.notValidInput()
 
     def createPlayers(self, amount_of_players):
 
@@ -87,20 +107,33 @@ class UINavigator:
         return players;
 
 
-
-
-
     def startQuickMatch(self):
 
-        select_option_singlegame = raw_input(
-            "Do you want to play: \n1. Player vs Player \n2. Player vs AI \n3. AI vs AI \n4. Go back to menu\n").lower()
+        loopQuit = True
+        plattform = Plattform()
+        while loopQuit:
 
+            # Menu for startQuickMatch
+            print("")
+            print("")
+            print("******GAME MODE ***********************")
+            print("")
+            print("1. Player vs Player ")
+            print("2. Player vs AI ")
+            print("3. AI vs AI ")
+            print("4. Go back to menu")
+            print("****************************************")
+            print("")
+            select_option_singlegame = raw_input("Enter number on what type of game you wanna play: ")
 
-        if select_option_singlegame != "4":
-
-            plattform = Plattform()
-
-
+            '''
+            select_option_singlegame = raw_input(
+                "Do you want to play: \n"
+                "1. Player vs Player \n"
+                "2. Player vs AI \n"
+                "3. AI vs AI \n"
+                "4. Go back to menu\n").lower()
+            '''
             # Player vs Player
             if select_option_singlegame == "1":
 
@@ -123,7 +156,7 @@ class UINavigator:
                 plattform.start_match()
 
             # Player vs AI
-            if select_option_singlegame == "2":
+            elif select_option_singlegame == "2":
 
                 p1_name = raw_input("Enter the name of player 1: ")
                 ai_name = raw_input("Enter the name of the AI: ")
@@ -155,7 +188,7 @@ class UINavigator:
                     except ValueError:
                         print 'Invalid input for AI level, number expected \n'
 
-            if select_option_singlegame == "3":
+            elif select_option_singlegame == "3":
 
                 ai1_name = raw_input("Enter the name of the first AI: ")
                 ai2_name = raw_input("Enter the name of the second AI: ")
@@ -189,6 +222,12 @@ class UINavigator:
                         correctAiLevelGiven = True
                     except ValueError:
                         print 'Invalid input for AI level, number expected\n'
+            elif select_option_singlegame == "4":
+                loopQuit = False
+
+            else:
+                self.notValidInput()
+
 
 
 
