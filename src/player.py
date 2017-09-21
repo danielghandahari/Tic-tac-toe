@@ -1,6 +1,9 @@
 class Player:
 
-    def __init__(self, name, isAI, level):
-        self.name = name
-        self.isAI = isAI
-        self.level = level
+    def __init__(self):
+        self.name = None
+        self.isAI = None
+        self.level = None
+
+    def __str__(self):
+        return "Players name is: " + self.name
