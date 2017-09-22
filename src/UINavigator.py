@@ -10,14 +10,19 @@ class UINavigator:
         print("")
 
     def startTournament(self):
-        print "Tournament started"
 
-        amount_of_players = raw_input("How many players will participate in the tournament? _")
+        try:
+            amount_of_players = int(raw_input("How many players will participate in the tournament? _"))
 
-        players = self.createPlayers(amount_of_players)
+            players = self.createPlayers(amount_of_players)
 
-        tournament = Tournament(players)
-        tournament.create_tournament_tree()
+            tournament = Tournament(players)
+            tournament.print_tournament()
+        except ValueError:
+            print "Incorrect input for amount of participants, try again!"
+            self.startTournament()
+
+
 
     def print_menu(self):
         print("")
@@ -71,7 +76,7 @@ class UINavigator:
         players = []
 
         for i in range(1, amount_of_players + 1):
-            print "Creating player number " + str(i) + "\n"
+            print "\nCreating player number " + str(i)
 
             player = Player()
             player_name = raw_input("Choose name for player " + str(i) + " _")
@@ -234,5 +239,9 @@ class UINavigator:
 
 if __name__ == '__main__':
 
-    ui = UINavigator()
-    ui.choose_mode()
+    try:
+        ui = UINavigator()
+        ui.choose_mode()
+    except KeyboardInterrupt:
+        print "\nGoodbye, see ya!"
+

@@ -6,4 +6,9 @@ class Player:
         self.level = None
 
     def __str__(self):
-        return "Players name is: " + self.name
+        str =  "Players name is: " + self.name + "\n"
+
+        if(self.isAI):
+            return str + " and is AI with level " + self.level + "\n"
+
+        return str

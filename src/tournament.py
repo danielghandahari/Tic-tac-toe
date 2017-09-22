@@ -7,25 +7,46 @@ class Tournament:
 
     def __init__(self, players):
 
-        self.amount_of_players = players.__len__()
+        self.players = players
+        self.tournament_tree = self.create_tournament_tree()
 
+
+
+    def create_tournament_tree(self):
+
+        random.shuffle(self.players)
+
+        """
+        check if odd, then add ai, here!
+        """
 
         tournament_tree = []
 
-    # TODO andra players till self.players??
-    def create_tournament_tree(self, players):
-
-        shuffled_players_list = random.shuffle(players)
-
-        tournament_tree = []
-
-        i = shuffled_players_list.__len__()
-        print "LEENGTH: " + i
-        while i > 0:
+        i = 0
+        while i < len(self.players):
             plattform = Plattform()
-            plattform.player1 = shuffled_players_list[i]
-            plattform.player2 = shuffled_players_list[i+1]
-
+            plattform.player1 = self.players[i]
+            plattform.player2 = self.players[i+1]
             tournament_tree.append([plattform])
-            --i
+            i = i + 2
 
+        return tournament_tree
+
+    def print_welcome_message(self):
+        print "\n\n######################################"
+        print "########## Let the games begin! ######"
+        print "######################################\n\n"
+
+    def print_tournament(self):
+
+        self.print_welcome_message()
+        for plattform in self.tournament_tree:
+
+            print "---------" + str(plattform)
+
+            # Checks if player is last
+            if(plattform is self.tournament_tree[len(self.tournament_tree)-1]):
+                break
+
+            for i in range(0,8):
+                print "|"

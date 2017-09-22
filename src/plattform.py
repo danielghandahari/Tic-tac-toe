@@ -1,5 +1,3 @@
-import player
-
 class Plattform:
 
 
@@ -8,15 +6,18 @@ class Plattform:
         self.player2 = None
         self.winner = None
         self.gameEngine = None
-        board = [" ", " ", " ",
+        self.board = [" ", " ", " ",
                  " ", " ", " ",
                  " ", " ", " "]
+
+    def __str__(self):
+        return self.player1.name + " VS " + self.player2.name
 
 
 
 
     def print_board(self):
-        """FUnction to print the board"""
+
         print("======= Your movement =======")
         print("           " + "-------")
         print("           " + "|" + self.board[0] + "|" + self.board[1] + "|" + self.board[2] + "|")
@@ -27,9 +28,9 @@ class Plattform:
         print("           " + "-------")
         print("============================= \n")
 
-    def print_board_dummies(self):
-        """FUnction to print the board dummies, so the player know the position"""
-        print("======= Board Dummies =======")
+    def print_board_instruction(self):
+
+        print("======= Board instruction =======")
         print("           " + "-------")
         print("           " + "|" + "1" + "|" + "2" + "|" + "3" + "|")
         print("           " + "-------")
@@ -39,53 +40,92 @@ class Plattform:
         print("           " + "-------")
         print("============================= \n")
 
+    def check_winner(self, tile):
+
+        if((tile == "X") or (tile == "O")):
+
+            if (self.board[0] == tile and self.board[1] == tile and self.board[2] == tile) or \
+                    (self.board[3] == tile and self.board[4] == tile and self.board[5] == tile) or \
+                    (self.board[6] == tile and self.board[7] == tile and self.board[8] == tile) or \
+                    (self.board[0] == tile and self.board[3] == tile and self.board[6] == tile) or \
+                    (self.board[1] == tile and self.board[4] == tile and self.board[7] == tile) or \
+                    (self.board[2] == tile and self.board[5] == tile and self.board[8] == tile) or \
+                    (self.board[0] == tile and self.board[4] == tile and self.board[8] == tile) or \
+                    (self.board[2] == tile and self.board[4] == tile and self.board[6] == tile):
+
+                    return True
+
+        return False
+
+    def check_tie(self):
+        if (" " not in self.board):
+            print("Tie! No player wins!")
+            return True
+
+
+    def clean_board(self):
+        self.board = [" ", " ", " ",
+                      " ", " ", " ",
+                      " ", " ", " "]
+
     def start_match(self):
-        "Logic for starting a match"
-        print "Match started \n Under progress \n \n \n"
 
-    def player_x_move(self):
-        """Function to handle player X movement"""
-        self.print_board()
-        # Capture player X movement
-        try:
-            move = raw_input("Where do you want to move " + "Player-X" + "? ")
-            move = int(move) - int(1)
-            # Check if the player inputs valid input i.e 0-8
-            if move > -1 and move < 9:
-                # Check if the space is empty or not
-                if self.board[move] == " ":
-                    self.board[move] = "X"
-                else:
-                    print("The space is taken!")
-                    self.player_x_move()
-            else:
-                print("Please write valid input i.e 1-9!")
-                self.player_x_move()
-        # If user enter non-integer input
-        except ValueError:
-            print("Please write valid input i.e 1-9!")
-            self.player_x_move()
+        while True:
 
-    def player_o_move(self):
+            self.print_board_instruction()
+
+            # Check if player X wins
+            self.move_player(self.player1.name, "X")
+            x_winner = self.check_winner("X")
+            if(x_winner):
+                print("Congratulation, " + self.player1.name + " win!")
+                self.print_board()
+                break
+
+            # Check tie
+            tie = self.check_tie()
+            if tie:
+                self.print_board()
+                break
+
+            # Check if player O wins
+            self.move_player(self.player2.name, "O")
+            o_winner = self.check_winner("O")
+            if (o_winner):
+                print("Congratulation, " + self.player2.name + " win!")
+                self.print_board()
+                break
+
+            # Check tie
+            tie = self.check_tie()
+            if tie:
+                self.print_board()
+                break
+
+        self.clean_board()
+
+
+    def move_player(self, name, tile):
         """Function to handle player O movement"""
         self.print_board()
         # Capture player O movement
         try:
-            move = raw_input("Where do you want to move " + "Player-O" + "? ")
+            move = raw_input("Where do you want to move " + name + "? ")
             move = int(move) - int(1)
             # Check if the player inputs valid input i.e 0-8
             if move > -1 and move < 9:
                 # Check if the space is empty or not
                 if self.board[move] == " ":
-                    self.board[move] = "O"
+                    self.board[move] = tile
                 else:
                     print("The space is taken")
-                    self.player_o_move()
+                    self.move_player(name, tile)
             else:
                 print("Please write valid input i.e 1-9!")
-                self.player_x_move()
+                self.move_player(name, tile)
         # If user enter non-integer input
         except ValueError:
             print("Please write valid input i.e 1-9!")
-            self.player_x_move()
+            self.move_player(name, tile)
 
+    __repr__ = __str__
