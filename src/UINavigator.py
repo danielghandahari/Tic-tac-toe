@@ -60,7 +60,6 @@ class UINavigator:
         print("****************************************")
         print("")
 
-    #function for choosing options from the start menu. 
     def choose_mode(self):
         """
         Function: Handle the user valid-input based on the main menu.
@@ -71,14 +70,8 @@ class UINavigator:
         while not done:
 
             self.print_menu()
-<<<<<<< HEAD
 
             select_option = raw_input("What do you want to do? Please choose between S, T, or Q _").lower()
-=======
-            #maybe add the different options "choose between S, T and Q..?"
-            select_option = raw_input("What do you want to do? _").lower()
->>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
-
 
             if select_option == "s":
                 self.startQuickMatch()
@@ -103,28 +96,20 @@ class UINavigator:
             else:
                 self.notValidInput()
 
-    #function for creating new players and returns a list of the players created.
+    
     def createPlayers(self, amount_of_players):
-<<<<<<< HEAD
         """
         Function:   Handle the player creation if it is a human or AI, and also the AI level. 
         Return:     List of created players 
         """
 
         # Creates a list of players
-=======
-        #creates a list of players
->>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
         players = []
 
         for i in range(1, amount_of_players + 1):
             print "\nCreating player number " + str(i)
-<<<<<<< HEAD
-
             # Creates a new player
-=======
-            #Creates a new player 
->>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
+            
             player = Player()
             player_name = raw_input("Choose name for player " + str(i) + " _")
 
@@ -284,14 +269,7 @@ class UINavigator:
                 self.notValidInput()
 
 
-
-<<<<<<< HEAD
-
 # Main loop with a new UINavigator
-=======
-#main loop with a new UINavigator 
-
->>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
 if __name__ == '__main__':
 
     try:
