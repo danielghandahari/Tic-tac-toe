@@ -1,3 +1,15 @@
+# ------------------------------------------------------------------------------
+# -- File Name:       plattform.py
+# -- University:      Uppsala University
+# -- Department:      Information Technology
+# -- Course:          Software Engineering and Project Management
+# -- Project:         Tic-Tac-Toe         
+# -- Author:          Group D
+# -- Description:     In this class implement the plattform handling. 
+# --                  It handles the gameplay and check if the game is tie or has a winner. 
+# ------------------------------------------------------------------------------
+
+
 class Plattform:
 
 
@@ -17,6 +29,9 @@ class Plattform:
 
 
     def print_board(self):
+        """
+        Function: Print the game board
+        """
 
         print("======= Your movement =======")
         print("           " + "-------")
@@ -29,6 +44,9 @@ class Plattform:
         print("============================= \n")
 
     def print_board_instruction(self):
+        """
+        Function: Create the game board instruction, so the user know where to move
+        """
 
         print("======= Board instruction =======")
         print("           " + "-------")
@@ -41,6 +59,9 @@ class Plattform:
         print("============================= \n")
 
     def check_winner(self, tile):
+        """
+        Function: Check the winner
+        """
 
         if((tile == "X") or (tile == "O")):
 
@@ -58,17 +79,29 @@ class Plattform:
         return False
 
     def check_tie(self):
+        """
+        Function: Check if the game is tie
+        """
+
         if (" " not in self.board):
             print("Tie! No player wins!")
             return True
 
 
     def clean_board(self):
+        """
+        Function: Provide a clean board
+        """
+
         self.board = [" ", " ", " ",
                       " ", " ", " ",
                       " ", " ", " "]
 
     def start_match(self):
+
+        """
+        Function: handle the match
+        """
 
         while True:
 
@@ -106,9 +139,11 @@ class Plattform:
 
 
     def move_player(self, name, tile):
-        """Function to handle player O movement"""
+        """
+        Function: Handle the players movement
+        """
         self.print_board()
-        # Capture player O movement
+        # Capture player movement
         try:
             move = raw_input("Where do you want to move " + name + "? ")
             move = int(move) - int(1)

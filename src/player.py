@@ -1,3 +1,14 @@
+# ------------------------------------------------------------------------------
+# -- File Name:       player.py
+# -- University:      Uppsala University
+# -- Department:      Information Technology
+# -- Course:          Software Engineering and Project Management
+# -- Project:         Tic-Tac-Toe         
+# -- Author:          Group D
+# -- Description:     In this class implement the player handling. 
+# --                  It handles players attributes i.e name, human ior AI, and AI level.
+# ------------------------------------------------------------------------------
+
 class Player:
 
     def __init__(self):

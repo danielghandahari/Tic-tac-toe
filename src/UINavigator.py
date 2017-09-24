@@ -1,3 +1,14 @@
+# ------------------------------------------------------------------------------
+# -- File Name:       UINavigator.py
+# -- University:      Uppsala University
+# -- Department:      Information Technology
+# -- Course:          Software Engineering and Project Management
+# -- Project:         Tic-Tac-Toe         
+# -- Author:          Group D
+# -- Description:     In this class implement the UI Navigator. 
+# --                  It handles the user inputs and return it to the specific function.
+# ------------------------------------------------------------------------------
+
 from plattform import Plattform
 from player import Player
 from tournament import Tournament
@@ -6,12 +17,19 @@ class UINavigator:
    
     #function for not a valid input option
     def notValidInput(self):
+        """
+        Function: Print warning if the user does not select a valid input.
+        """
+
         print("")
         print("You have not selected a valid option!")
         print("")
    
     #function for creating a tournament with enterd amount of players.
     def startTournament(self):
+        """
+        Function: Create the tournament tree with entered amount of player
+        """
 
         try:
             amount_of_players = int(raw_input("How many players will participate in the tournament? _"))
@@ -27,6 +45,10 @@ class UINavigator:
 
     #fucntion for priting the start menu. 
     def print_menu(self):
+        """
+        Function: Print the Main Menu
+        """
+
         print("")
         print("")
         print("******TIC***TAC***TOE***MENU***********")
@@ -40,14 +62,22 @@ class UINavigator:
 
     #function for choosing options from the start menu. 
     def choose_mode(self):
+        """
+        Function: Handle the user valid-input based on the main menu.
+        """
 
         done = False
 
         while not done:
 
             self.print_menu()
+<<<<<<< HEAD
+
+            select_option = raw_input("What do you want to do? Please choose between S, T, or Q _").lower()
+=======
             #maybe add the different options "choose between S, T and Q..?"
             select_option = raw_input("What do you want to do? _").lower()
+>>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
 
 
             if select_option == "s":
@@ -75,12 +105,26 @@ class UINavigator:
 
     #function for creating new players and returns a list of the players created.
     def createPlayers(self, amount_of_players):
+<<<<<<< HEAD
+        """
+        Function:   Handle the player creation if it is a human or AI, and also the AI level. 
+        Return:     List of created players 
+        """
+
+        # Creates a list of players
+=======
         #creates a list of players
+>>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
         players = []
 
         for i in range(1, amount_of_players + 1):
             print "\nCreating player number " + str(i)
+<<<<<<< HEAD
+
+            # Creates a new player
+=======
             #Creates a new player 
+>>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
             player = Player()
             player_name = raw_input("Choose name for player " + str(i) + " _")
 
@@ -89,6 +133,7 @@ class UINavigator:
             player.level = None
 
             while True:
+                # User can define the player type, Human or AI 
                 player_type = raw_input("Choose the type for " + str(player_name) + "\n1. Player" + "\n2. AI _").lower()
 
                 if(player_type == "1"): break
@@ -116,6 +161,9 @@ class UINavigator:
 
     #function for starting a quickmatch with different options PvP PvAI, AIvAI
     def startQuickMatch(self):
+        """
+        Function: Handle a single game. It can be Player vs Player, Player vs AI, or AI vs AI.
+        """
 
         loopQuit = True
         plattform = Plattform()
@@ -196,7 +244,7 @@ class UINavigator:
                         print 'Invalid input for AI level, number expected \n'
 
             elif select_option_singlegame == "3":
-
+                # AI vs AI
                 ai1_name = raw_input("Enter the name of the first AI: ")
                 ai2_name = raw_input("Enter the name of the second AI: ")
 
@@ -237,8 +285,13 @@ class UINavigator:
 
 
 
+<<<<<<< HEAD
+
+# Main loop with a new UINavigator
+=======
 #main loop with a new UINavigator 
 
+>>>>>>> b63ed6a67ed03f77a57bce883bf0541de36b38a1
 if __name__ == '__main__':
 
     try:
@@ -246,4 +299,3 @@ if __name__ == '__main__':
         ui.choose_mode()
     except KeyboardInterrupt:
         print "\nGoodbye, see ya!"
-
