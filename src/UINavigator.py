@@ -3,12 +3,14 @@ from player import Player
 from tournament import Tournament
 
 class UINavigator:
-
+   
+    #function for not a valid input option
     def notValidInput(self):
         print("")
         print("You have not selected a valid option!")
         print("")
-
+   
+    #function for creating a tournament with enterd amount of players.
     def startTournament(self):
 
         try:
@@ -23,7 +25,7 @@ class UINavigator:
             self.startTournament()
 
 
-
+    #fucntion for priting the start menu. 
     def print_menu(self):
         print("")
         print("")
@@ -36,7 +38,7 @@ class UINavigator:
         print("****************************************")
         print("")
 
-
+    #function for choosing options from the start menu. 
     def choose_mode(self):
 
         done = False
@@ -44,7 +46,7 @@ class UINavigator:
         while not done:
 
             self.print_menu()
-
+            #maybe add the different options "choose between S, T and Q..?"
             select_option = raw_input("What do you want to do? _").lower()
 
 
@@ -71,13 +73,14 @@ class UINavigator:
             else:
                 self.notValidInput()
 
+    #function for creating new players and returns a list of the players created.
     def createPlayers(self, amount_of_players):
-
+        #creates a list of players
         players = []
 
         for i in range(1, amount_of_players + 1):
             print "\nCreating player number " + str(i)
-
+            #Creates a new player 
             player = Player()
             player_name = raw_input("Choose name for player " + str(i) + " _")
 
@@ -111,7 +114,7 @@ class UINavigator:
 
         return players;
 
-
+    #function for starting a quickmatch with different options PvP PvAI, AIvAI
     def startQuickMatch(self):
 
         loopQuit = True
@@ -141,7 +144,6 @@ class UINavigator:
             '''
             # Player vs Player
             if select_option_singlegame == "1":
-
                 p1_name = raw_input("Enter the name of player 1: ")
                 p2_name = raw_input("Enter the name of player 2: ")
 
@@ -235,7 +237,7 @@ class UINavigator:
 
 
 
-
+#main loop with a new UINavigator 
 
 if __name__ == '__main__':
 
