@@ -19,14 +19,40 @@ class Plattform:
         self.winner = None
         self.gameEngine = None
         self.board = [" ", " ", " ",
-                 " ", " ", " ",
-                 " ", " ", " "]
+                      " ", " ", " ",
+                      " ", " ", " "]
 
     def __str__(self):
         return self.player1.name + " VS " + self.player2.name
 
+    """
+    Function: Print out the number of moves each players has left.
+    Argument: A int which decides which turn it is. 1 for Player 1 and 2 for player 2.
+    """
+    def print_players_moves_left(self,playersTurn):
 
-
+        if playersTurn == 0:
+            print "Moves left:"
+            print self.player1.name +":",
+            for x in range(0, self.player1.Moves):
+                print("X"),
+            print " "
+            print self.player2.name +":",
+            for x in range(0, self.player2.Moves-1):
+                print("O"),
+            self.player1.Moves -= 1
+            print " "
+        elif playersTurn == 1:
+            print "Moves left:"
+            print self.player1.name + ":",
+            for x in range(0,  self.player1.Moves):
+                print("X"),
+            print " "
+            print self.player2.name + ":",
+            for x in range(0,  self.player2.Moves-1):
+                print("O"),
+            self.player2.Moves -= 1
+            print " "
 
     def print_board(self):
         """
@@ -74,7 +100,7 @@ class Plattform:
                     (self.board[0] == tile and self.board[4] == tile and self.board[8] == tile) or \
                     (self.board[2] == tile and self.board[4] == tile and self.board[6] == tile):
 
-                    return True
+                return True
 
         return False
 
@@ -105,8 +131,8 @@ class Plattform:
 
         while True:
 
-            self.print_board_instruction()
-
+            # Print out number of moves the players has left.
+            self.print_players_moves_left(0)
             # Check if player X wins
             self.move_player(self.player1.name, "X")
             x_winner = self.check_winner("X")
@@ -121,6 +147,8 @@ class Plattform:
                 self.print_board()
                 break
 
+            # Print out number of moves the players has left.
+            self.print_players_moves_left(1)
             # Check if player O wins
             self.move_player(self.player2.name, "O")
             o_winner = self.check_winner("O")
@@ -142,6 +170,7 @@ class Plattform:
         """
         Function: Handle the players movement
         """
+        self.print_board_instruction()
         self.print_board()
         # Capture player movement
         try:

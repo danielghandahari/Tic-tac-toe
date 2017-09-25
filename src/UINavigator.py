@@ -179,6 +179,7 @@ class UINavigator:
             if select_option_singlegame == "1":
                 p1_name = raw_input("Enter the name of player 1: ")
                 p2_name = raw_input("Enter the name of player 2: ")
+                print(" \n \n")
 
                 player1 = Player()
                 player1.name = p1_name

@@ -15,6 +15,7 @@ class Player:
         self.name = None
         self.isAI = None
         self.level = None
+        self.Moves = 5
 
     def __str__(self):
         str =  "Players name is: " + self.name + "\n"
