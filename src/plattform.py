@@ -14,6 +14,7 @@ class Plattform:
 
 
     def __init__(self):
+        self.quitGame = False
         self.player1 = None
         self.player2 = None
         self.winner = None
@@ -130,7 +131,11 @@ class Plattform:
         """
 
         while True:
-
+            # Player 2 has give up so Player 1 wins the game.
+            if self.quitGame:
+                print("Congratulation, " + self.player1.name + " win!")
+                self.print_board()
+                break
             # Print out number of moves the players has left.
             self.print_players_moves_left(0)
             # Check if player X wins
@@ -147,6 +152,11 @@ class Plattform:
                 self.print_board()
                 break
 
+            # Player 1 has give up so Player 2 wins the game.
+            if self.quitGame:
+                print("Congratulation, " + self.player2.name + " win!")
+                self.print_board()
+                break
             # Print out number of moves the players has left.
             self.print_players_moves_left(1)
             # Check if player O wins
@@ -162,7 +172,7 @@ class Plattform:
             if tie:
                 self.print_board()
                 break
-
+        self.quitGame = False
         self.clean_board()
 
 
@@ -174,7 +184,12 @@ class Plattform:
         self.print_board()
         # Capture player movement
         try:
+            print "Enter Q if you want to quit the game."
             move = raw_input("Where do you want to move " + name + "? ")
+            #Option to end the game.
+            if move == "q" or move == "Q":
+                self.quitGame = True
+                return
             move = int(move) - int(1)
             # Check if the player inputs valid input i.e 0-8
             if move > -1 and move < 9:
