@@ -32,14 +32,18 @@ class UINavigator:
         """
 
         try:
-            amount_of_players = int(raw_input("How many players will participate in the tournament? _"))
+            print "How many players will participate in the tournament?"
+            amount_of_players = int(raw_input("Choose between 2,4 or 8 participates: _"))
+            if 2 == amount_of_players or amount_of_players == 4 or amount_of_players == 8:
+                players = self.createPlayers(amount_of_players)
+                tournament = Tournament(players)
+                tournament.print_tournament()
 
-            players = self.createPlayers(amount_of_players)
-
-            tournament = Tournament(players)
-            tournament.print_tournament()
+            else:
+                print "Incorrect input for amount of participants, try again!\n\n"
+                self.startTournament()
         except ValueError:
-            print "Incorrect input for amount of participants, try again!"
+            print "Incorrect input for amount of participants, try again!\n\n"
             self.startTournament()
 
 
