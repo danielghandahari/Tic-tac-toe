@@ -32,6 +32,9 @@ class Plattform:
     """
     def print_players_moves_left(self,playersTurn):
 
+        print("")
+        print("")
+
         if playersTurn == 0:
             print "Moves left:"
             print self.player1.name +":",
@@ -129,12 +132,13 @@ class Plattform:
         """
         Function: handle the match
         """
-
+        winnersName = ""
         while True:
             # Player 2 has give up so Player 1 wins the game.
             if self.quitGame:
-                print("Congratulation, " + self.player1.name + " win!")
+                #print("Congratulation, " + self.player1.name + " win!")
                 self.print_board()
+                winnersName = self.player1.name
                 break
             # Print out number of moves the players has left.
             self.print_players_moves_left(0)
@@ -142,8 +146,9 @@ class Plattform:
             self.move_player(self.player1.name, "X")
             x_winner = self.check_winner("X")
             if(x_winner):
-                print("Congratulation, " + self.player1.name + " win!")
+                #print("Congratulation, " + self.player1.name + " win!")
                 self.print_board()
+                winnersName = self.player1.name
                 break
 
             # Check tie
@@ -154,8 +159,9 @@ class Plattform:
 
             # Player 1 has give up so Player 2 wins the game.
             if self.quitGame:
-                print("Congratulation, " + self.player2.name + " win!")
+                #print("Congratulation, " + self.player2.name + " win!")
                 self.print_board()
+                winnersName = self.player2.name
                 break
             # Print out number of moves the players has left.
             self.print_players_moves_left(1)
@@ -163,8 +169,9 @@ class Plattform:
             self.move_player(self.player2.name, "O")
             o_winner = self.check_winner("O")
             if (o_winner):
-                print("Congratulation, " + self.player2.name + " win!")
+                #print("Congratulation, " + self.player2.name + " win!")
                 self.print_board()
+                winnersName = self.player2.name
                 break
 
             # Check tie
@@ -174,6 +181,7 @@ class Plattform:
                 break
         self.quitGame = False
         self.clean_board()
+        return winnersName
 
 
     def move_player(self, name, tile):

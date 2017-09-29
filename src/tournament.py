@@ -65,5 +65,5 @@ class Tournament:
             if(plattform is self.tournament_tree[len(self.tournament_tree)-1]):
                 break
 
-            for i in range(0,8):
+            for i in range(0, 5):
                 print "|"

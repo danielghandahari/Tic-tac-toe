@@ -24,7 +24,46 @@ class UINavigator:
         print("")
         print("You have not selected a valid option!")
         print("")
-   
+
+    # function for continue and finish the tournament.
+    def continueTournament(self, tournament):
+        newPlayersList = []
+        plattform = Plattform()
+        playersOfTournament = tournament.players
+        tournament.print_tournament()
+        tournamentContinues = True
+
+        while True:
+            # Loops with 2 step each time to avoid that same player plays multiply times.
+            for x in range(0, len(playersOfTournament)-1, 2):
+                plattform.player1 = playersOfTournament[x]
+                plattform.player2 = playersOfTournament[x+1]
+                winnersName = plattform.start_match()
+                print("Congratulation, " + winnersName + " win!")
+
+                # Add the player that won the game.
+                if winnersName == playersOfTournament[x].name:
+                    # Reset th players moves.
+                    plattform.player1.Moves = 5
+                    newPlayersList.append(plattform.player1)
+                else:
+                    # Reset th players moves.
+                    plattform.player2.Moves = 5
+                    newPlayersList.append(plattform.player2)
+            # Check if the tournament is finished.
+            if len(newPlayersList) == 1:
+                tournamentContinues = False
+
+            # If the tournament is not finished it start over with the player that are left.
+            if tournamentContinues:
+                NewTournament = Tournament(newPlayersList)
+                self.continueTournament(NewTournament)
+            else:
+                print "\n \n !!!Congratulation!!!!\n\n"
+                print newPlayersList[0].name + " has won the tournament!!"
+                break
+            break
+
     #function for creating a tournament with enterd amount of players.
     def startTournament(self):
         """
@@ -37,7 +76,7 @@ class UINavigator:
             if 2 == amount_of_players or amount_of_players == 4 or amount_of_players == 8:
                 players = self.createPlayers(amount_of_players)
                 tournament = Tournament(players)
-                tournament.print_tournament()
+                self.continueTournament(tournament)
 
             else:
                 print "Incorrect input for amount of participants, try again!\n\n"
@@ -198,7 +237,8 @@ class UINavigator:
                 plattform.player1 = player1
                 plattform.player2 = player2
 
-                plattform.start_match()
+                winnersName = plattform.start_match()
+                print("Congratulation, " + winnersName + " win!")
 
             # Player vs AI
             elif select_option_singlegame == "2":
@@ -227,7 +267,8 @@ class UINavigator:
                         plattform.player1 = player1
                         plattform.player2 = ai_player
 
-                        plattform.start_match()
+                        winnersName = plattform.start_match()
+                        print("Congratulation, " + winnersName + " win!")
 
                         correctAiLevelGiven = True
                     except ValueError:
@@ -262,7 +303,8 @@ class UINavigator:
                         plattform.player1 = ai1_player
                         plattform.player2 = ai2_player
 
-                        plattform.start_match()
+                        winnerName = plattform.start_match()
+                        print("Congratulation, " + winnersName + " win!")
 
                         correctAiLevelGiven = True
                     except ValueError:
