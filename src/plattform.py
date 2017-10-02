@@ -115,7 +115,6 @@ class Plattform:
         """
 
         if (" " not in self.board):
-            print("Tie! No player wins!")
             return True
 
 
@@ -156,6 +155,14 @@ class Plattform:
             tie = self.check_tie()
             if tie:
                 self.print_board()
+                """"
+                self.clean_board()
+                self.player1.Moves = 5
+                self.player2.Moves = 5
+                self.winner = None
+                self.start_match()
+                """
+                winnersName = ""
                 break
 
             # Player 1 has give up so Player 2 wins the game.
@@ -178,6 +185,7 @@ class Plattform:
             # Check tie
             tie = self.check_tie()
             if tie:
+                winnersName = ""
                 self.print_board()
                 break
         self.quitGame = False
@@ -207,9 +215,9 @@ class Plattform:
                     self.board[move] = tile
                     os.system('clear')
                 else:
-                    print("The space is taken")
-                    self.move_player(name, tile)
                     os.system('clear')
+                    print("\nThe space is taken!\n")
+                    self.move_player(name, tile)
             else:
                 print("Please write valid input i.e 1-9!")
                 self.move_player(name, tile)

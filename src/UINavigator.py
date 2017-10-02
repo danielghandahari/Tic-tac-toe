@@ -59,7 +59,6 @@ class UINavigator:
                 NewTournament = Tournament(newPlayersList)
                 self.continueTournament(NewTournament)
             else:
-                print "\n \n !!!Congratulation!!!!\n\n"
                 print newPlayersList[0].name + " has won the tournament!!"
                 break
             break
@@ -222,9 +221,10 @@ class UINavigator:
                 "3. AI vs AI \n"
                 "4. Go back to menu\n").lower()
             '''
+            winnersName = ""
             # Player vs Player
             if select_option_singlegame == "1":
-                p1_name = raw_input("Enter the name of player 1: ")
+                p1_name = raw_input("\n\n\nEnter the name of player 1: ")
                 p2_name = raw_input("Enter the name of player 2: ")
                 print(" \n \n")
 
@@ -241,8 +241,18 @@ class UINavigator:
                 plattform.player1 = player1
                 plattform.player2 = player2
 
-                winnersName = plattform.start_match()
-                print("Congratulation, " + winnersName + " win!")
+                # if a game is tie, winnersName will be ""
+                while(winnersName == ""):
+                    winnersName = plattform.start_match()
+
+                    if(winnersName == ""):
+                        print "\n\n######################################"
+                        print "############# It's a tie! ############"
+                        print "######################################"
+
+                print "\n\n######################################"
+                print "####### Congratulation, " + winnersName + " win! #######"
+                print "######################################"
 
             # Player vs AI
             elif select_option_singlegame == "2":
@@ -271,8 +281,17 @@ class UINavigator:
                         plattform.player1 = player1
                         plattform.player2 = ai_player
 
-                        winnersName = plattform.start_match()
-                        print("Congratulation, " + winnersName + " win!")
+                        # if a game is tie, winnersName will be ""
+                        while (winnersName == ""):
+                            winnersName = plattform.start_match()
+                            if (winnersName == ""):
+                                print "\n\n######################################"
+                                print "############# It's a tie! ############"
+                                print "######################################"
+
+                        print "\n\n######################################"
+                        print "####### Congratulation, " + winnersName + " win! #######"
+                        print "######################################"
 
                         correctAiLevelGiven = True
                     except ValueError:

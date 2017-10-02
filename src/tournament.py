@@ -27,12 +27,7 @@ class Tournament:
         """
         Function: Create the tournament tree
         """
-
         random.shuffle(self.players)
-
-        """
-        check if the odd, then add ai, here!
-        """
 
         tournament_tree = []
 
