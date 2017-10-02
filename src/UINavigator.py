@@ -118,9 +118,11 @@ class UINavigator:
 
             if select_option == "s":
                 self.startQuickMatch()
+     
 
             elif select_option == "t":
                 self.startTournament()
+     
 
             elif select_option == "q":
                 loopQuit = True
@@ -132,12 +134,14 @@ class UINavigator:
                         print("Goodbye")
                         loopQuit = False
                         done = True
+     
                     elif select_option_quit == "n":
                         loopQuit = False
                     else:
                         self.notValidInput()
             else:
                 self.notValidInput()
+
 
     
     def createPlayers(self, amount_of_players):

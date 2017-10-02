@@ -9,6 +9,7 @@
 # --                  It handles the gameplay and check if the game is tie or has a winner. 
 # ------------------------------------------------------------------------------
 
+import os
 
 class Plattform:
 
@@ -204,15 +205,19 @@ class Plattform:
                 # Check if the space is empty or not
                 if self.board[move] == " ":
                     self.board[move] = tile
+                    os.system('clear')
                 else:
                     print("The space is taken")
                     self.move_player(name, tile)
+                    os.system('clear')
             else:
                 print("Please write valid input i.e 1-9!")
                 self.move_player(name, tile)
+                os.system('clear')
         # If user enter non-integer input
         except ValueError:
             print("Please write valid input i.e 1-9!")
             self.move_player(name, tile)
+            os.system('clear')
 
     __repr__ = __str__
