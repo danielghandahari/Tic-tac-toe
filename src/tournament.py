@@ -1,3 +1,14 @@
+# ------------------------------------------------------------------------------
+# -- File Name:       tournament.py
+# -- University:      Uppsala University
+# -- Department:      Information Technology
+# -- Course:          Software Engineering and Project Management
+# -- Project:         Tic-Tac-Toe         
+# -- Author:          Group D
+# -- Description:     In this class implement the tournament handling. 
+# --                  It handles tournament tree and the game schedule.
+# ------------------------------------------------------------------------------
+
 import random
 
 from plattform import Plattform
@@ -13,11 +24,14 @@ class Tournament:
 
 
     def create_tournament_tree(self):
+        """
+        Function: Create the tournament tree
+        """
 
         random.shuffle(self.players)
 
         """
-        check if odd, then add ai, here!
+        check if the odd, then add ai, here!
         """
 
         tournament_tree = []
@@ -33,6 +47,9 @@ class Tournament:
         return tournament_tree
 
     def print_welcome_message(self):
+        """
+        Function: Print tournament welcome message
+        """
         print "\n\n######################################"
         print "########## Let the games begin! ######"
         print "######################################\n\n"
@@ -48,5 +65,5 @@ class Tournament:
             if(plattform is self.tournament_tree[len(self.tournament_tree)-1]):
                 break
 
-            for i in range(0,8):
+            for i in range(0, 5):
                 print "|"

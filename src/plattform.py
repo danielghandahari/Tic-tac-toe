@@ -1,22 +1,67 @@
+# ------------------------------------------------------------------------------
+# -- File Name:       plattform.py
+# -- University:      Uppsala University
+# -- Department:      Information Technology
+# -- Course:          Software Engineering and Project Management
+# -- Project:         Tic-Tac-Toe         
+# -- Author:          Group D
+# -- Description:     In this class implement the plattform handling. 
+# --                  It handles the gameplay and check if the game is tie or has a winner. 
+# ------------------------------------------------------------------------------
+
+
 class Plattform:
 
 
     def __init__(self):
+        self.quitGame = False
         self.player1 = None
         self.player2 = None
         self.winner = None
         self.gameEngine = None
         self.board = [" ", " ", " ",
-                 " ", " ", " ",
-                 " ", " ", " "]
+                      " ", " ", " ",
+                      " ", " ", " "]
 
     def __str__(self):
         return self.player1.name + " VS " + self.player2.name
 
+    """
+    Function: Print out the number of moves each players has left.
+    Argument: A int which decides which turn it is. 1 for Player 1 and 2 for player 2.
+    """
+    def print_players_moves_left(self,playersTurn):
 
+        print("")
+        print("")
 
+        if playersTurn == 0:
+            print "Moves left:"
+            print self.player1.name +":",
+            for x in range(0, self.player1.Moves):
+                print("X"),
+            print " "
+            print self.player2.name +":",
+            for x in range(0, self.player2.Moves-1):
+                print("O"),
+            self.player1.Moves -= 1
+            print " "
+        elif playersTurn == 1:
+            print "Moves left:"
+            print self.player1.name + ":",
+            for x in range(0,  self.player1.Moves):
+                print("X"),
+            print " "
+            print self.player2.name + ":",
+            for x in range(0,  self.player2.Moves-1):
+                print("O"),
+            self.player2.Moves -= 1
+            print " "
 
     def print_board(self):
+        """
+        Function: Print the game board
+        """
 
         print("======= Your movement =======")
         print("           " + "-------")
@@ -29,6 +74,9 @@ class Plattform:
         print("============================= \n")
 
     def print_board_instruction(self):
+        """
+        Function: Create the game board instruction, so the user know where to move
+        """
 
         print("======= Board instruction =======")
         print("           " + "-------")
@@ -41,6 +89,9 @@ class Plattform:
         print("============================= \n")
 
     def check_winner(self, tile):
+        """
+        Function: Check the winner
+        """
 
         if((tile == "X") or (tile == "O")):
 
@@ -53,33 +104,51 @@ class Plattform:
                     (self.board[0] == tile and self.board[4] == tile and self.board[8] == tile) or \
                     (self.board[2] == tile and self.board[4] == tile and self.board[6] == tile):
 
-                    return True
+                return True
 
         return False
 
     def check_tie(self):
+        """
+        Function: Check if the game is tie
+        """
+
         if (" " not in self.board):
             print("Tie! No player wins!")
             return True
 
 
     def clean_board(self):
+        """
+        Function: Provide a clean board
+        """
+
         self.board = [" ", " ", " ",
                       " ", " ", " ",
                       " ", " ", " "]
 
     def start_match(self):
 
+        """
+        Function: handle the match
+        """
+        winnersName = ""
         while True:
-
-            self.print_board_instruction()
-
+            # Player 2 has give up so Player 1 wins the game.
+            if self.quitGame:
+                #print("Congratulation, " + self.player1.name + " win!")
+                self.print_board()
+                winnersName = self.player1.name
+                break
+            # Print out number of moves the players has left.
+            self.print_players_moves_left(0)
             # Check if player X wins
             self.move_player(self.player1.name, "X")
             x_winner = self.check_winner("X")
             if(x_winner):
-                print("Congratulation, " + self.player1.name + " win!")
+                #print("Congratulation, " + self.player1.name + " win!")
                 self.print_board()
+                winnersName = self.player1.name
                 break
 
             # Check tie
@@ -88,12 +157,21 @@ class Plattform:
                 self.print_board()
                 break
 
+            # Player 1 has give up so Player 2 wins the game.
+            if self.quitGame:
+                #print("Congratulation, " + self.player2.name + " win!")
+                self.print_board()
+                winnersName = self.player2.name
+                break
+            # Print out number of moves the players has left.
+            self.print_players_moves_left(1)
             # Check if player O wins
             self.move_player(self.player2.name, "O")
             o_winner = self.check_winner("O")
             if (o_winner):
-                print("Congratulation, " + self.player2.name + " win!")
+                #print("Congratulation, " + self.player2.name + " win!")
                 self.print_board()
+                winnersName = self.player2.name
                 break
 
             # Check tie
@@ -101,16 +179,25 @@ class Plattform:
             if tie:
                 self.print_board()
                 break
-
+        self.quitGame = False
         self.clean_board()
+        return winnersName
 
 
     def move_player(self, name, tile):
-        """Function to handle player O movement"""
+        """
+        Function: Handle the players movement
+        """
+        self.print_board_instruction()
         self.print_board()
-        # Capture player O movement
+        # Capture player movement
         try:
+            print "Enter Q if you want to quit the game."
             move = raw_input("Where do you want to move " + name + "? ")
+            #Option to end the game.
+            if move == "q" or move == "Q":
+                self.quitGame = True
+                return
             move = int(move) - int(1)
             # Check if the player inputs valid input i.e 0-8
             if move > -1 and move < 9:
