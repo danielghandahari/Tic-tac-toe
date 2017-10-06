@@ -189,6 +189,9 @@ class Plattform:
                 self.print_board()
                 break
         self.quitGame = False
+        # Moves are restored for ties
+        self.player1.Moves = 5
+        self.player2.Moves = 5
         self.clean_board()
         return winnersName
 

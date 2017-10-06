@@ -32,13 +32,27 @@ class UINavigator:
         playersOfTournament = tournament.players
         tournament.print_tournament()
         tournamentContinues = True
+        winnersName = ""
 
         while True:
-            # Loops with 2 step each time to avoid that same player plays multiply times.
+            # Loops with 2 step each time to avoid that same player plays multiple times.
             for x in range(0, len(playersOfTournament)-1, 2):
                 plattform.player1 = playersOfTournament[x]
                 plattform.player2 = playersOfTournament[x+1]
-                winnersName = plattform.start_match()
+
+                while (winnersName == ""):
+                    winnersName = plattform.start_match()
+
+                    if (winnersName == ""):
+                        print "\n\n######################################"
+                        print "############# It's a tie! ############"
+                        print "######################################"
+
+
+
+
+
+
                 print("Congratulation, " + winnersName + " win!")
 
                 # Add the player that won the game.
@@ -297,6 +311,7 @@ class UINavigator:
                     except ValueError:
                         print 'Invalid input for AI level, number expected \n'
 
+            #  Will we keep this option?
             elif select_option_singlegame == "3":
                 # AI vs AI
                 ai1_name = raw_input("Enter the name of the first AI: ")
