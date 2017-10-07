@@ -28,7 +28,6 @@ class UINavigator:
     # function for continue and finish the tournament.
     def continueTournament(self, tournament):
         newPlayersList = []
-        plattform = Plattform()
         playersOfTournament = tournament.players
         tournament.print_tournament()
         tournamentContinues = True
@@ -37,6 +36,7 @@ class UINavigator:
         while True:
             # Loops with 2 step each time to avoid that same player plays multiple times.
             for x in range(0, len(playersOfTournament)-1, 2):
+                plattform = Plattform()
                 plattform.player1 = playersOfTournament[x]
                 plattform.player2 = playersOfTournament[x+1]
 
@@ -48,20 +48,17 @@ class UINavigator:
                         print "############# It's a tie! ############"
                         print "######################################"
 
-
-
-
-
-
                 print("Congratulation, " + winnersName + " win!")
 
                 # Add the player that won the game.
                 if winnersName == playersOfTournament[x].name:
                     # Reset th players moves.
+                    winnersName = ""
                     plattform.player1.Moves = 5
                     newPlayersList.append(plattform.player1)
                 else:
                     # Reset th players moves.
+                    winnersName = ""
                     plattform.player2.Moves = 5
                     newPlayersList.append(plattform.player2)
             # Check if the tournament is finished.
@@ -168,21 +165,28 @@ class UINavigator:
 
         for i in range(1, amount_of_players + 1):
             print "\nCreating player number " + str(i)
+
             # Creates a new player
-            
             player = Player()
-            player_name = raw_input("Choose name for player " + str(i) + " _")
 
-            player.name = player_name
-            player.isAI = False
-            player.level = None
-
+            # Choosing type pf player
             while True:
-                # User can define the player type, Human or AI 
-                player_type = raw_input("Choose the type for " + str(player_name) + "\n1. Player" + "\n2. AI _").lower()
+                print("1. Player ")
+                print("2. AI ")
+                player_type = raw_input("Choose the type of the player _").lower()
 
-                if(player_type == "1"): break
-                if (player_type == "2"): break
+                if(player_type == "1" or player_type == "2"):
+                    break
+                else:
+                    print "Invalid input for choosing player type!"
+
+            if(player_type == "1"):
+
+                player_name = raw_input("Choose name for player " + str(i) + " _")
+
+                player.name = player_name
+                player.isAI = False
+                player.level = None
 
 
 
@@ -190,19 +194,52 @@ class UINavigator:
             if(player_type == "2"):
 
                 player.isAI = True
-                while True:
-                    ai_level = raw_input(
-                        "Choose the AI level for " + str(player_name) + "\n1.Easy \n2.Medium \n3.Hard").lower()
 
-                    if (ai_level == "1"): break
-                    if (ai_level == "2"): break
-                    if (ai_level == "3"): break
+                correctAiLevelGiven = False
 
-                player.level = ai_level
+                while not correctAiLevelGiven:
+
+                    try:
+                        self.printAiOptions()
+                        ai_level = raw_input()
+                        ai_level_int = int(ai_level)
+
+                        if (ai_level_int == 1 or ai_level_int == 2 or ai_level_int == 3):
+
+                            ai_name = self.getAiName(ai_level_int)
+
+                            player.name = ai_name
+                            player.level = ai_level_int
+
+                            correctAiLevelGiven = True
+                        else:
+                            self.notValidInput()
+                            continue
+                    except ValueError:
+                        print 'Invalid input for AI level, number expected \n'
 
             players.append(player)
 
         return players;
+
+    def printAiOptions(self):
+        print("******CHOOSE AI ***********************")
+        print("")
+        print("1. Easy Eric ")
+        print("2. Medium Munira ")
+        print("3. Ultra Kim ")
+        print("****************************************")
+
+    def getAiName(self, level):
+
+        if(level == 1):
+            return "Easy Eric"
+        elif(level == 2):
+            return "Medium Munira"
+        elif(level == 3):
+            return "Ultra Kim"
+        else:
+            return ""
 
     #function for starting a quickmatch with different options PvP PvAI, AIvAI
     def startQuickMatch(self):
@@ -272,28 +309,35 @@ class UINavigator:
             elif select_option_singlegame == "2":
 
                 p1_name = raw_input("Enter the name of player 1: ")
-                ai_name = raw_input("Enter the name of the AI: ")
 
                 correctAiLevelGiven = False
 
                 while not correctAiLevelGiven:
 
                     try:
-                        ai_level = raw_input("Enter the level the AI: ")
+                        self.printAiOptions()
+                        ai_level = raw_input()
                         ai_level_int = int(ai_level)
 
-                        player1 = Player()
-                        player1.name = p1_name
-                        player1.isAi = False
-                        player1.level = None
+                        if(ai_level_int == 1 or ai_level_int == 2 or ai_level_int == 3):
 
-                        ai_player = Player()
-                        ai_player.name = ai_name
-                        ai_player.isAi = True
-                        ai_player.level = ai_level_int
+                            ai_name = self.getAiName(ai_level_int)
 
-                        plattform.player1 = player1
-                        plattform.player2 = ai_player
+                            player1 = Player()
+                            player1.name = p1_name
+                            player1.isAi = False
+                            player1.level = None
+
+                            ai_player = Player()
+                            ai_player.name = ai_name
+                            ai_player.isAi = True
+                            ai_player.level = ai_level_int
+
+                            plattform.player1 = player1
+                            plattform.player2 = ai_player
+                        else:
+                            self.notValidInput()
+                            continue
 
                         # if a game is tie, winnersName will be ""
                         while (winnersName == ""):
