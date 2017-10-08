@@ -21,6 +21,6 @@ class Player:
         str =  "Players name is: " + self.name + "\n"
 
         if(self.isAI):
-            return str + " and is AI with level " + self.level + "\n"
+            return str + " and is AI with level %d  \n" % self.level
 
         return str

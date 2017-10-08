@@ -10,6 +10,8 @@
 # ------------------------------------------------------------------------------
 
 import os
+from GameEngine import GameEngine
+from random import randint
 
 class Plattform:
 
@@ -23,6 +25,11 @@ class Plattform:
         self.board = [" ", " ", " ",
                       " ", " ", " ",
                       " ", " ", " "]
+        ''' Need this for the AI players '''
+        self.winningCombinations = (
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        )
 
     def __str__(self):
         return self.player1.name + " VS " + self.player2.name
@@ -133,20 +140,21 @@ class Plattform:
         Function: handle the match
         """
         winnersName = ""
+        playerNumber = 0
         while True:
             # Player 2 has give up so Player 1 wins the game.
             if self.quitGame:
-                #print("Congratulation, " + self.player1.name + " win!")
                 self.print_board()
                 winnersName = self.player1.name
                 break
             # Print out number of moves the players has left.
             self.print_players_moves_left(0)
+            # set which players turn it is and move player.
+            playerNumber = 1
+            self.move_player(self.player1.name, "X", playerNumber)
             # Check if player X wins
-            self.move_player(self.player1.name, "X")
             x_winner = self.check_winner("X")
             if(x_winner):
-                #print("Congratulation, " + self.player1.name + " win!")
                 self.print_board()
                 winnersName = self.player1.name
                 break
@@ -167,17 +175,17 @@ class Plattform:
 
             # Player 1 has give up so Player 2 wins the game.
             if self.quitGame:
-                #print("Congratulation, " + self.player2.name + " win!")
                 self.print_board()
                 winnersName = self.player2.name
                 break
             # Print out number of moves the players has left.
             self.print_players_moves_left(1)
+            # set which players turn it is and move player.
+            playerNumber = 2
+            self.move_player(self.player2.name, "O", playerNumber)
             # Check if player O wins
-            self.move_player(self.player2.name, "O")
             o_winner = self.check_winner("O")
             if (o_winner):
-                #print("Congratulation, " + self.player2.name + " win!")
                 self.print_board()
                 winnersName = self.player2.name
                 break
@@ -195,40 +203,114 @@ class Plattform:
         self.clean_board()
         return winnersName
 
+    '''********************************************************************'''
+    ''' Functions that are required to get the component GameEngine to work'''
 
-    def move_player(self, name, tile):
+    '''
+    This function returns the board updated with the new AI move. Depending on the difficulty chosen
+    different AIs will be used.
+    Param: AIlevel (int) the difficulty of the AI, can be a number between 1 and 3
+    Param: player (int) who the current player is, should be either the number 1 or 2
+    Return: board (list). If invalid player or AIlevel function returns 0
+    '''
+
+    def AImove(self, AIlevel, playerNumber, tile):
+        AI = GameEngine()
+
+        '''if player != 1 and player != 2:
+            return 0
+        '''
+
+        if AIlevel == 1:
+            move = AI.getAImove1(self)
+            self.board[move] = tile
+            os.system('clear')
+            return
+        elif AIlevel == 2:
+            move = AI.getAImove2(playerNumber, self)
+            self.board[move] = tile
+            os.system('clear')
+            return
+        elif AIlevel == 3:
+            move = AI.getAImove3(playerNumber, self)
+            self.board[move] = tile
+            os.system('clear')
+            return
+        else:
+            return 0
+
+    def checkWinner(self):
+        for combination in self.winningCombinations:
+            if self.board[combination[0]] == self.board[combination[1]] == self.board[combination[2]] == 1:
+                return 1
+            elif self.board[combination[0]] == self.board[combination[1]] == self.board[combination[2]] == 2:
+                return 2
+        return 0
+
+    def updateBoard(self, move, player):
+        self.board[move - 1] = player
+        return self
+
+    '''
+    This function checks if the move is valid.
+    Return: Bool
+    '''
+
+    def checkValidMove(self, move):
+        if self.board[move] == " ":
+            return True
+        return False
+
+    def anySpaceLeft(self):
+        for tile in range(0, 8):
+            if self.board[tile] == " ":
+                return True
+        return False
+
+    ''' End of GameEngine help functions '''
+    '''********************************************************************'''
+
+    def move_player(self, name, tile, playerNumber):
         """
         Function: Handle the players movement
         """
         self.print_board_instruction()
         self.print_board()
-        # Capture player movement
-        try:
-            print "Enter Q if you want to quit the game."
-            move = raw_input("Where do you want to move " + name + "? ")
-            #Option to end the game.
-            if move == "q" or move == "Q":
-                self.quitGame = True
-                return
-            move = int(move) - int(1)
-            # Check if the player inputs valid input i.e 0-8
-            if move > -1 and move < 9:
-                # Check if the space is empty or not
-                if self.board[move] == " ":
-                    self.board[move] = tile
-                    os.system('clear')
+
+        # Check if the player is a AI and which turn the player has.
+        if playerNumber == 1 and self.player1.isAI:
+            self.AImove(self.player1.level, playerNumber, tile)
+        elif playerNumber == 2 and self.player2.isAI:
+            self.AImove(self.player2.level, playerNumber, tile)
+
+        else:
+            # Capture player movement
+            try:
+                print "Enter Q if you want to quit the game."
+                move = raw_input("Where do you want to move " + name + "? ")
+                #Option to end the game.
+                if move == "q" or move == "Q":
+                    self.quitGame = True
+                    return
+                move = int(move) - int(1)
+                # Check if the player inputs valid input i.e 0-8
+                if move > -1 and move < 9:
+                    # Check if the space is empty or not
+                    if self.board[move] == " ":
+                        self.board[move] = tile
+                        os.system('clear')
+                    else:
+                        os.system('clear')
+                        print("\nThe space is taken!\n")
+                        self.move_player(name, tile, playerNumber)
                 else:
+                    print("Please write valid input i.e 1-9!")
+                    self.move_player(name, tile, playerNumber)
                     os.system('clear')
-                    print("\nThe space is taken!\n")
-                    self.move_player(name, tile)
-            else:
+            # If user enter non-integer input
+            except ValueError:
                 print("Please write valid input i.e 1-9!")
-                self.move_player(name, tile)
+                self.move_player(name, tile, playerNumber)
                 os.system('clear')
-        # If user enter non-integer input
-        except ValueError:
-            print("Please write valid input i.e 1-9!")
-            self.move_player(name, tile)
-            os.system('clear')
 
     __repr__ = __str__

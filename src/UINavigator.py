@@ -281,12 +281,12 @@ class UINavigator:
 
                 player1 = Player()
                 player1.name = p1_name
-                player1.isAi = False
+                player1.isAI = False
                 player1.level = None
 
                 player2 = Player()
                 player2.name = p2_name
-                player2.isAi = False
+                player2.isAI = False
                 player2.level = None
 
                 plattform.player1 = player1
@@ -325,12 +325,12 @@ class UINavigator:
 
                             player1 = Player()
                             player1.name = p1_name
-                            player1.isAi = False
+                            player1.isAI = False
                             player1.level = None
 
                             ai_player = Player()
                             ai_player.name = ai_name
-                            ai_player.isAi = True
+                            ai_player.isAI = True
                             ai_player.level = ai_level_int
 
                             plattform.player1 = player1
@@ -374,12 +374,12 @@ class UINavigator:
 
                         ai1_player = Player()
                         ai1_player.name = ai1_name
-                        ai1_player.isAi = True
+                        ai1_player.isAI = True
                         ai1_player.level = ai1_level_int
 
                         ai2_player = Player()
                         ai1_player.name = ai2_name
-                        ai1_player.isAi = True
+                        ai1_player.isAI = True
                         ai1_player.level = ai2_level_int
 
                         plattform.player1 = ai1_player
