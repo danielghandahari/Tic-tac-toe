@@ -34,7 +34,7 @@ class GameEngine:
         else:
             return 0
 
-        for i in range(0, 8):
+        for i in range(0, 9):
             boardCopy = deepcopy(board)
             if boardCopy.checkValidMove(i):
                 boardCopy.updateBoard(i, player)
@@ -42,7 +42,7 @@ class GameEngine:
                     # print("winning")
                     return i
 
-        for i in range(0, 8):
+        for i in range(0, 9):
             boardCopy = deepcopy(board)
             if boardCopy.checkValidMove(i):
                 boardCopy.updateBoard(i, notPlayer)
@@ -92,7 +92,7 @@ class GameEngine:
         boardCopy = deepcopy(board)
         boardCopy.board[i-1] = player
         winningMoves = 0
-        for j in range(1, 10):
+        for j in range(0, 9):
             if self.checkWinMove(boardCopy, player, j) and boardCopy.checkValidMove(j):
                 winningMoves += 1
                 return winningMoves >= 2
@@ -113,7 +113,7 @@ class GameEngine:
         else:
             return 0
 
-        for i in range(0, 8):
+        for i in range(0, 9):
             boardCopy = deepcopy(board)
             if boardCopy.checkValidMove(i):
                 boardCopy.updateBoard(i, player)
@@ -121,7 +121,7 @@ class GameEngine:
                     # print("winning")
                     return i
 
-        for i in range(0, 8):
+        for i in range(0, 9):
             boardCopy = deepcopy(board)
             if boardCopy.checkValidMove(i):
                 boardCopy.updateBoard(i, notPlayer)
@@ -129,12 +129,12 @@ class GameEngine:
                     # print("blocking")
                     return i
 
-        for i in range(0, 8):
+        for i in range(0, 9):
             boardCopy = deepcopy(board)
             if boardCopy.checkValidMove(i) and self.checkForkMove(boardCopy, player, i):
                 return i
 
-        for i in range(0, 8):
+        for i in range(0, 9):
             boardCopy = deepcopy(board)
             if boardCopy.checkValidMove(i) and self.checkForkMove(boardCopy, notPlayer, i):
                 return i
@@ -165,7 +165,7 @@ class GameEngine:
 
     def numberOfFilledSquares(self,board):
         square = 0
-        for i in range(0, 8):
-            if board.board[i]!=0:
+        for i in range(0, 9):
+            if board.board[i]!= " ":
                 square=square+1
         return square
