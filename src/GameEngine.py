@@ -139,7 +139,7 @@ class GameEngine:
             if boardCopy.checkValidMove(i) and self.checkForkMove(boardCopy, notPlayer, i):
                 return i
 
-        middle = [5]
+        middle = [4]
         cornerMoveList = [0, 2, 6, 8]
         edgeMoveList = [1, 3, 5, 7]
 
