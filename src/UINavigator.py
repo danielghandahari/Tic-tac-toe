@@ -14,7 +14,7 @@ from player import Player
 from tournament import Tournament
 
 class UINavigator:
-   
+
     #function for not a valid input option
     def notValidInput(self):
         """
@@ -128,11 +128,11 @@ class UINavigator:
 
             if select_option == "s":
                 self.startQuickMatch()
-     
+
 
             elif select_option == "t":
                 self.startTournament()
-     
+
 
             elif select_option == "q":
                 loopQuit = True
@@ -144,7 +144,7 @@ class UINavigator:
                         print("Goodbye")
                         loopQuit = False
                         done = True
-     
+
                     elif select_option_quit == "n":
                         loopQuit = False
                     else:
@@ -153,7 +153,7 @@ class UINavigator:
                 self.notValidInput()
 
 
-    
+
     def createPlayers(self, amount_of_players):
         """
         Function:   Handle the player creation if it is a human or AI, and also the AI level. 
@@ -258,8 +258,7 @@ class UINavigator:
             print("")
             print("1. Player vs Player ")
             print("2. Player vs AI ")
-            print("3. AI vs AI ")
-            print("4. Go back to menu")
+            print("3. Go back to menu")
             print("****************************************")
             print("")
             select_option_singlegame = raw_input("Enter number on what type of game you wanna play: ")
@@ -269,8 +268,7 @@ class UINavigator:
                 "Do you want to play: \n"
                 "1. Player vs Player \n"
                 "2. Player vs AI \n"
-                "3. AI vs AI \n"
-                "4. Go back to menu\n").lower()
+                "3. Go back to menu\n").lower()
             '''
             winnersName = ""
             # Player vs Player
@@ -354,9 +352,13 @@ class UINavigator:
                         correctAiLevelGiven = True
                     except ValueError:
                         print 'Invalid input for AI level, number expected \n'
-
-            #  Will we keep this option?
             elif select_option_singlegame == "3":
+                loopQuit = False
+
+            else:
+                self.notValidInput()
+            #  Option prepared to add AI VS AI mode.
+            '''elif select_option_singlegame == "3":
                 # AI vs AI
                 ai1_name = raw_input("Enter the name of the first AI: ")
                 ai2_name = raw_input("Enter the name of the second AI: ")
@@ -391,11 +393,7 @@ class UINavigator:
                         correctAiLevelGiven = True
                     except ValueError:
                         print 'Invalid input for AI level, number expected\n'
-            elif select_option_singlegame == "4":
-                loopQuit = False
-
-            else:
-                self.notValidInput()
+            '''
 
 
 # Main loop with a new UINavigator
